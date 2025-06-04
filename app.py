@@ -18,6 +18,37 @@ def get_db_connection():
         database=os.getenv("DB_NAME")
     )
 
+# Hashe passordet med hashlib
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+# Verifisere det hashende passordet
+def verify_password(stored_password, password_to_check):
+    return stored_password == hashlib.sha256(password_to_check.encode()).hexdigest()
+
+
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        brukernavn = request.form['username']
+        passord = request.form['password']
+        passord_hash = hash_password(passord)
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM users WHERE username = %s", (brukernavn,))
+        bruker = cursor.fetchone()
+        conn.close()
+
+        if bruker and bruker['password'] == passord_hash:
+            session['user'] = brukernavn
+            return redirect('/dashboard')
+        else:
+            return 'Feil brukernavn eller passord'
+
+    return render_template('login.html')
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
