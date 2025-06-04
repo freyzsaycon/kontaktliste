@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontaktliste</title>
+    
+</head>
+<body>
+    <h2>Kontaktliste</h2>
+<ul>
+{% for c in contacts %}
+    <li>{{ c.name }} – {{ c.phone }} – {{ c.email }}</li>
+{% endfor %}
+</ul>
+</body>
+</html>
