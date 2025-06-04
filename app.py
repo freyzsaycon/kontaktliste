@@ -64,7 +64,19 @@ def register():
             
     return render_template('register.html')
 
+@app.route('/dashboard')
+def dashboard():
+    if 'user' not in session:
+        return redirect('/')
 
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM contacts")
+    kontakter = cursor.fetchall()
+    conn.close()
+    
+    return render_template('dashboard.html', contacts=kontakter)
+    
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
