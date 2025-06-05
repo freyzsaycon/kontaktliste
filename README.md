@@ -1,7 +1,7 @@
 # Kontaktliste
 - En kontaktliste nettside som består av 1 side med overikt over ulike kontakter, og som trengs brukeren å logge inn for å kunne få tilgang til selve hovedsiden. Det blir brukt programmer som VS Code(Flask, Python, HTML), MariaDB, Hyper-V, og Github.
 
-## Brukerveiledning – Kontaktliste
+## For å starte Flask koden
 
 ### Oppstart
 1. Start MariaDB på Ubuntu VM.
